@@ -181,3 +181,20 @@ const Lightbox = {
     Lightbox.closeButton.style.top = '-80px'
   }
 }
+
+const Validate = {
+  apply(input, func) {
+    let results = Validate[func](input.value)
+    input.value = results.value
+
+    if (results.error) 
+      alert('ERROOOUU!!')
+  },
+  isEmail(value) {
+    let error = null
+    return {
+      error,
+      value
+    }
+  }
+}
