@@ -14,12 +14,21 @@ module.exports = {
         }
     }
     // check if user exists [email, cpf_cnpj]
-    const { email, cpf_cnpj } = req.body
+    let { email, cpf_cnpj, password, passwordRepeat } = req.body
+
+    cpf_cnpj = cpf_cnpj.replace(/\D/g, "")
+
     user = await User.findOne({ 
       where: { email },
       or: { cpf_cnpj }  
     })
 
+    if (user) return res.send('Users exists')
+
     // check if password match
+    if (password != passwordRepeat)
+      return res.send('Password Mismatch')
+
+    return res.send('Passed!')
   }
 }
